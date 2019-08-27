@@ -48,7 +48,8 @@ class HomePageState extends State<HomePage> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((callback) {
-      getClipboardDatas();
+      analysisClipboard("https://item.taobao.com/item.htm?id=528445672970");
+      // getClipboardDatas();
     });
   }
 

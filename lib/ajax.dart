@@ -4,8 +4,9 @@ import 'dart:io';
 typedef void Callback(arg);
 
 class Ajax {
-  void get(String api, Map<String, String> data, Callback success) async {
-    var url = "https://api.zhetaoke.com:10003/api/$api";
+  void get(String api, Map<String, String> data, Callback success, {Callback error}) async {
+
+    var url = api.contains("https") ? api : "https://api.zhetaoke.com:10003/api/$api";
 
     data.forEach((key, value) {
       url += url.contains("?") ? "&" : "?";
@@ -21,15 +22,14 @@ class Ajax {
         var result = jsonDecode(json);
         success(result);
       } else {
-        print("server error");
-        print(url);
-        print("11");
+        if (error != null) {
+          error(response.statusCode);
+        }
       }
     } catch (exception) {
-      print("server error");
-      print(url);
-      print("22");
-      print(exception);
+      if (error != null) {
+        error(exception);
+      }
     }
   }
 }

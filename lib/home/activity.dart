@@ -61,6 +61,7 @@ class _ActivityState extends State<Activity> {
   @override
   void dispose () {
     bus.off("active");
+    super.dispose();
   }
 
   @override

@@ -2,28 +2,18 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import './app.dart';
-import './loading.dart';
-import './search.dart';
-
-import './home/goodsbar.dart';
+import './goodsinfo/goodsinfo.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
-  title: '聊天室',
+  title: 'app',
   theme: mDefaultTheme,
+  initialRoute: '/',
   routes: <String, WidgetBuilder>{
-//    "app": (BuildContext context) => new App(),
-//    "/friends": (_) => new WebviewScaffold(
-//      url: 'https://www.baidu,com',
-//      appBar: new AppBar(
-//        title: new Text('baidu'),
-//      ),
-//      withZoom: true,
-//      withlocalStorage: true,
-//    ),
-//    "search": (BuildContext context) => new Search(),
+    '/': (BuildContext context) => new HomePage(),
+    '/goodsinfo': (BuildContext context) => new Goodsinfo(),
   },
-  home: new HomePage()
+  // home: new HomePage()
 ));
 
 final ThemeData mDefaultTheme = new ThemeData(

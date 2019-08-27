@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import './goodsinfo/goodsinfo.dart';
+
 dialog (BuildContext context, Map<String, dynamic> goods) async {
   ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
-  print(goods);
-  print("dialog");
+
   await showDialog(
       context: context,
       builder: (_) {
@@ -104,7 +105,13 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                               ),
                             ),
                             onTap: () {
-                              print(goods);
+                              Navigator.pop(context);
+                              Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+                                return new Goodsinfo(
+                                  name: "dialog",
+                                  value: goods,
+                                );
+                              }));
                             },
                           ),
                           GestureDetector(
@@ -119,7 +126,7 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "领劵",
+                                "去领劵",
                                 style: TextStyle(
                                   color: Color(0xFFFFFFFF),
                                   fontSize: ScreenUtil().setSp(28),
@@ -129,7 +136,6 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                               ),
                             ),
                             onTap: () {
-
                             },
                           ),
                         ],

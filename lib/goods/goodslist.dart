@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../event.dart';
+import '../goodsinfo/goodsinfo.dart';
 
 class GoodList extends StatefulWidget {
   @override
@@ -27,7 +28,6 @@ class _GoodListState extends State<GoodList> {
   _getGoodList () async {
     var url = "$_url&page=$_page";
     var httpClient = new HttpClient();
-
     List result;
     var totalArr = [];
     try {
@@ -66,7 +66,7 @@ class _GoodListState extends State<GoodList> {
           _loadingShow = true;
         });
         _nav = text;
-        _url = text == '综合' ? "https://api.zhetaoke.com:10001/api/api_shishi.ashx?appkey=f1c7c24c8e0c43a0860799a0448ff523&sort=new&today=1&page=1&page_size=50" : _initUrl + text;
+        _url = text == '综合' ? "https://api.zhetaoke.com:10001/api/api_shishi.ashx?appkey=f1c7c24c8e0c43a0860799a0448ff523&sort=sale_num_desc&today=1&page_size=20" : _initUrl + text;
         _getGoodList();
       }
     });
@@ -109,166 +109,171 @@ class _GoodListState extends State<GoodList> {
 
     for (var item in _goodList) {
       goodArrWidget.add(
-        new Container (
-          constraints: new BoxConstraints.expand(
-            height: ScreenUtil().setHeight(180),
-          ),
-          padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(20), ScreenUtil().setHeight(20), ScreenUtil().setWidth(20), ScreenUtil().setHeight(20)),
-          margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(20), 0.0, 0.0),
-          decoration: new BoxDecoration(
-            borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
-            color: Color(0xFFFFFFFF),
-          ),
-          child: new Row(
-            children: <Widget>[
-              GestureDetector(
-                child: new Row(
-                  children: <Widget>[
-                    Image.network(
-                      item['pict_url'],
-                      width: ScreenUtil().setWidth(160),
-                      height: ScreenUtil().setHeight(160),
-                    ),
-                    new Column(
-                      children: <Widget>[
-                        new Row(
-                          children: <Widget>[
-                            Container(
-                              margin: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(10), 0.0, ScreenUtil().setWidth(10), 0.0),
-                              child: Image.asset(
-                                item['user_type'] == 0 ? "images/tb.png" : "images/tm.png",
-                                width: ScreenUtil().setWidth(40),
-                                height: ScreenUtil().setHeight(40),
-                              ),
-                            ),
-                            Container(
-                              width: ScreenUtil().setWidth(466),
-                              child: Text(
-                                item['title'],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(28),
-                                  color: Color(0xFF333333),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          width: ScreenUtil().setWidth(510),
-                          margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(16), 0.0, ScreenUtil().setHeight(18)),
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        GestureDetector(
+          child: new Container (
+            constraints: new BoxConstraints.expand(
+              height: ScreenUtil().setHeight(180),
+            ),
+            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(20), ScreenUtil().setHeight(20), ScreenUtil().setWidth(20), ScreenUtil().setHeight(20)),
+            margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(20), 0.0, 0.0),
+            decoration: new BoxDecoration(
+              borderRadius: new BorderRadius.all(new Radius.circular(6.0)),
+              color: Color(0xFFFFFFFF),
+            ),
+            child: new Row(
+              children: <Widget>[
+                new Row(
+                    children: <Widget>[
+                      Image.network(
+                        item['pict_url'],
+                        width: ScreenUtil().setWidth(160),
+                        height: ScreenUtil().setHeight(160),
+                      ),
+                      new Column(
+                        children: <Widget>[
+                          new Row(
                             children: <Widget>[
                               Container(
-                                decoration: new BoxDecoration(
-                                  border: new Border.all(width: 1.0, color: const Color(0xFFFC5032)),
+                                margin: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(10), 0.0, ScreenUtil().setWidth(10), 0.0),
+                                child: Image.asset(
+                                  item['user_type'] == 0 ? "images/tb.png" : "images/tm.png",
+                                  width: ScreenUtil().setWidth(40),
+                                  height: ScreenUtil().setHeight(40),
                                 ),
-                                width: ScreenUtil().setWidth(240), // 240
-                                height: ScreenUtil().setHeight(34),
-                                child: new Row(
-                                  children: <Widget>[
-                                    Container(
-                                      color: Color(0xFFFC5032),
-                                      width: ScreenUtil().setWidth(50),
-                                      height: ScreenUtil().setHeight(40),
-                                      child: Text(
-                                        "劵",
-                                        style: TextStyle(
-                                          color: Color(0xFFFFFFFF),
-                                          fontSize: ScreenUtil().setSp(28),
+                              ),
+                              Container(
+                                width: ScreenUtil().setWidth(466),
+                                child: Text(
+                                  item['title'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(28),
+                                    color: Color(0xFF333333),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            width: ScreenUtil().setWidth(510),
+                            margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(16), 0.0, ScreenUtil().setHeight(18)),
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  decoration: new BoxDecoration(
+                                    border: new Border.all(width: 1.0, color: const Color(0xFFFC5032)),
+                                  ),
+                                  width: ScreenUtil().setWidth(240), // 240
+                                  height: ScreenUtil().setHeight(34),
+                                  child: new Row(
+                                    children: <Widget>[
+                                      Container(
+                                        color: Color(0xFFFC5032),
+                                        width: ScreenUtil().setWidth(50),
+                                        height: ScreenUtil().setHeight(40),
+                                        child: Text(
+                                          "劵",
+                                          style: TextStyle(
+                                            color: Color(0xFFFFFFFF),
+                                            fontSize: ScreenUtil().setSp(28),
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        textAlign: TextAlign.center,
                                       ),
-                                    ),
-                                    Container(
-                                      width: ScreenUtil().setWidth(180),
-                                      height: ScreenUtil().setHeight(40),
-                                      child: new Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            item['coupon_info_money'],
-                                            style: TextStyle(
-                                              color: Color(0xFFFC5032),
-                                              fontSize: ScreenUtil().setSp(32),
-                                              fontWeight: FontWeight.w800,
+                                      Container(
+                                        width: ScreenUtil().setWidth(180),
+                                        height: ScreenUtil().setHeight(40),
+                                        child: new Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              item['coupon_info_money'],
+                                              style: TextStyle(
+                                                color: Color(0xFFFC5032),
+                                                fontSize: ScreenUtil().setSp(32),
+                                                fontWeight: FontWeight.w800,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "元",
-                                            style: TextStyle(
-                                              color: Color(0xFFFC5032),
-                                              fontSize: ScreenUtil().setSp(28),
+                                            Text(
+                                              "元",
+                                              style: TextStyle(
+                                                color: Color(0xFFFC5032),
+                                                fontSize: ScreenUtil().setSp(28),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "已售" + item['sellCount'] + "件",
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(28),
-                                  color: Color(0xFFA1A1A1),
+                                Text(
+                                  "已售" + item['sellCount'] + "件",
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(28),
+                                    color: Color(0xFFA1A1A1),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: ScreenUtil().setWidth(510),
-                          child: new Row(
-                            children: <Widget>[
-                              Text(
-                                '劵后 ￥ ',
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(24),
-                                  color: Color(0xFFA1A1A1),
+                          Container(
+                            width: ScreenUtil().setWidth(510),
+                            child: new Row(
+                              children: <Widget>[
+                                Text(
+                                  '劵后 ￥ ',
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(24),
+                                    color: Color(0xFFA1A1A1),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                item['quanhou_jiage'] + " ",
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(32),
-                                  color: Color(0xFF464646),
-                                  fontWeight: FontWeight.w800,
+                                Text(
+                                  item['quanhou_jiage'] + " ",
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(32),
+                                    color: Color(0xFF464646),
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                " ￥ ",
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(24),
-                                  color: Color(0xFFA1A1A1),
+                                Text(
+                                  " ￥ ",
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(24),
+                                    color: Color(0xFFA1A1A1),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                item['size'],
-                                style: TextStyle(
-                                  fontSize: ScreenUtil().setSp(24),
-                                  color: Color(0xFFA1A1A1),
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor: Color(0xFFA1A1A1),
-                                  decorationStyle: TextDecorationStyle.solid,
+                                Text(
+                                  item['size'],
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(24),
+                                    color: Color(0xFFA1A1A1),
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationColor: Color(0xFFA1A1A1),
+                                    decorationStyle: TextDecorationStyle.solid,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  print(item['tao_title']);
-                },
-              ),
-            ],
+                        ],
+                      ),
+                    ],
+                  )
+              ],
+            ),
           ),
-        ),
+          onTap: () {
+            Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
+              return new Goodsinfo(
+                name: "goods",
+                value: item,
+              );
+            }));
+          },
+        )
       );
     }
 
