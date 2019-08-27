@@ -30,9 +30,6 @@ class HomePageState extends State<HomePage> {
   ScrollController _controller = new ScrollController();
   bool showToTopBtn = false;
 
-  // var url = "https://api.zhetaoke.com:10001/api/open_gaoyongzhuanlian_tkl.ashx?appkey=f1c7c24c8e0c43a0860799a0448ff523&sid=%201804&pid=%20mm_114380434_13332882_53064493&tkl="+IdHCY9sQc8W+"&signurl=0";
-
-
   @override
   void initState () {
     _controller.addListener(() {
@@ -48,8 +45,7 @@ class HomePageState extends State<HomePage> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((callback) {
-      analysisClipboard("https://item.taobao.com/item.htm?id=528445672970");
-      // getClipboardDatas();
+      getClipboardDatas();
     });
   }
 
