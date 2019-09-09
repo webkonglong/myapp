@@ -26,12 +26,13 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> with WidgetsBindingObserver{
   ScrollController _controller = new ScrollController();
   bool showToTopBtn = false;
-
+  bool isShowDialog = false;
   @override
   void initState () {
+    WidgetsBinding.instance.addObserver(this);
     _controller.addListener(() {
       if (_controller.offset < 500 && showToTopBtn) {
         setState(() {
@@ -43,10 +44,6 @@ class HomePageState extends State<HomePage> {
         });
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((callback) {
-      getClipboardDatas();
-    });
   }
 
   @override
@@ -56,6 +53,7 @@ class HomePageState extends State<HomePage> {
   }
 
   getClipboardDatas() async {
+    isShowDialog = true;
     var clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
     if (clipboardData != null) {
       analysisClipboard(clipboardData.text);
@@ -95,7 +93,16 @@ class HomePageState extends State<HomePage> {
   }
 
   getClipboardGoods (Map<String, dynamic> data) {
-    dialog(context, data['content'][0]);
+    dialog(context, data['content'][0], () {
+      print("close");
+      isShowDialog = false;
+    });
+  }
+
+  void didChangeAppLifecycleState (AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && !isShowDialog) {
+      getClipboardDatas();
+    }
   }
 
   @override
@@ -110,7 +117,7 @@ class HomePageState extends State<HomePage> {
         body: new Scrollbar(
           child: new Container(
             color: const Color(0xFFF1F1F1),
-            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(12), ScreenUtil().setHeight(20), ScreenUtil().setWidth(12), ScreenUtil().setHeight(40)),
+            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(12), 0.0, ScreenUtil().setWidth(12), 0.0),
             child: new ListView(
               controller: _controller,
               children: <Widget>[

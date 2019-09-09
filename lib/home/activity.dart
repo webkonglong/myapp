@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../event.dart';
-import '../ajax.dart';
 
 class Activity extends StatefulWidget {
   @override
@@ -12,57 +11,6 @@ class Activity extends StatefulWidget {
 }
 
 class _ActivityState extends State<Activity> {
-  var brand = "";
-  var tmall = "";
-  var large = "";
-  @override
-  void initState () {
-    ajax.get("api_all.ashx", {
-      "appkey": "f1c7c24c8e0c43a0860799a0448ff523",
-      "page_size": "1",
-      "sort": "sale_num_desc",
-      "cid": "0",
-      "pinpai": "1",
-      "page": "1"
-    }, (goods) {
-      setState(() {
-        brand = goods['content'][0]['pict_url'];
-      });
-      // 品牌
-    });
-
-    ajax.get("api_all.ashx", {
-      "appkey": "f1c7c24c8e0c43a0860799a0448ff523",
-      "page_size": "1",
-      "sort": "sale_num_desc",
-      "coupon_amount_start": "100",
-      "page": "1"
-    }, (goods) {
-      setState(() {
-        large = goods['content'][0]['pict_url'];
-      });
-      // 大额
-    });
-
-    ajax.get("api_all.ashx", {
-      "appkey": "f1c7c24c8e0c43a0860799a0448ff523",
-      "page_size": "1",
-      "sort": "sale_num_desc",
-      "tianmaochaoshi": "1",
-      "page": "1"
-    }, (goods) {
-      setState(() {
-        tmall = goods['content'][0]['pict_url'];
-      });
-      // 天猫
-    });
-  }
-
-  @override
-  void dispose () {
-    bus.off("active");
-    super.dispose();
-  }
 
   @override
   Widget build (BuildContext context) {
@@ -72,10 +20,10 @@ class _ActivityState extends State<Activity> {
         Expanded(
           flex: 1,
           child: Container(
-            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), 0.0, ScreenUtil().setWidth(5), 0.0),
+            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), ScreenUtil().setHeight(20), ScreenUtil().setWidth(5), 0.0),
             child: GestureDetector(
               child: Container(
-                  height: ScreenUtil().setHeight(280),
+                  height: ScreenUtil().setHeight(340),
                   padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(16), ScreenUtil().setHeight(20), ScreenUtil().setWidth(16), 0.0),
                   decoration: new BoxDecoration(
                       color: const Color(0xFF949494),
@@ -98,11 +46,8 @@ class _ActivityState extends State<Activity> {
                           color: const Color(0xFFFFFFFF)
                       ),),
                       Expanded(
-                        child: large == "" ? Image.asset(
-                          "images/goods.jpg",
-                          fit: BoxFit.contain,
-                        ) : Image.network(
-                          brand,
+                        child: Image.asset(
+                          "images/222.jpg",
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -118,10 +63,10 @@ class _ActivityState extends State<Activity> {
         Expanded(
           flex: 1,
           child: Container(
-            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), 0.0, ScreenUtil().setWidth(5), 0.0),
+            padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), ScreenUtil().setHeight(20), ScreenUtil().setWidth(5), 0.0),
             child: GestureDetector(
               child: Container(
-                height: ScreenUtil().setHeight(280),
+                height: ScreenUtil().setHeight(340),
                 padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(16), ScreenUtil().setHeight(20), ScreenUtil().setWidth(16), 0.0),
                 decoration: new BoxDecoration(
                     color: const Color(0xFF949494),
@@ -144,11 +89,8 @@ class _ActivityState extends State<Activity> {
                         color: const Color(0xFFFFFFFF)
                     ),),
                     Expanded(
-                      child: large == "" ? Image.asset(
-                        "images/goods.jpg",
-                        fit: BoxFit.contain,
-                      ) : Image.network(
-                        tmall,
+                      child: Image.asset(
+                        "images/333.jpg",
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -165,9 +107,9 @@ class _ActivityState extends State<Activity> {
           flex: 1,
           child: GestureDetector(
             child: Container(
-              padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), 0.0, ScreenUtil().setWidth(5), 0.0),
+              padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(5), ScreenUtil().setHeight(20), ScreenUtil().setWidth(5), 0.0),
               child: Container(
-                height: ScreenUtil().setHeight(280),
+                height: ScreenUtil().setHeight(340),
                 padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(16), ScreenUtil().setHeight(20), ScreenUtil().setWidth(16), 0.0),
                 decoration: new BoxDecoration(
                   color: const Color(0xFF949494),
@@ -190,11 +132,8 @@ class _ActivityState extends State<Activity> {
                         color: const Color(0xFFFFFFFF)
                     ),),
                     Expanded(
-                      child: large == "" ? Image.asset(
-                        "images/goods.jpg",
-                        fit: BoxFit.contain,
-                      ) : Image.network(
-                        large,
+                      child: Image.asset(
+                        "images/111.jpg",
                         fit: BoxFit.contain,
                       ),
                     ),

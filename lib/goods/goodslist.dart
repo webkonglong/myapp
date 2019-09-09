@@ -59,6 +59,7 @@ class _GoodListState extends State<GoodList> {
   initState() {
     _getGoodList();
     bus.on("type", (text) {
+      print(text);
       if (_nav != text) {
         _page = 1;
         _goodList = [];
@@ -72,11 +73,10 @@ class _GoodListState extends State<GoodList> {
     });
 
     bus.on("active", (text) {
+      print(123);
       if (_nav != text) {
         _page = 1;
         _goodList = [];
-        bus.emit("deleteNavClass", "-1");
-        bus.emit("delectInputVlaue", "-1");
         if (text == "品牌精选") {
           _url = _pinpai;
         }
@@ -95,13 +95,6 @@ class _GoodListState extends State<GoodList> {
     });
   }
 
-  void dispose () {
-    bus.off("active");
-    bus.off("type");
-    bus.off("deleteNavClass");
-    super.dispose();
-  }
-
   Widget goodListWidget () {
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
     List<Widget> goodArrWidget = [];
@@ -112,7 +105,7 @@ class _GoodListState extends State<GoodList> {
         GestureDetector(
           child: new Container (
             constraints: new BoxConstraints.expand(
-              height: ScreenUtil().setHeight(180),
+              height: ScreenUtil().setHeight(220),
             ),
             padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(20), ScreenUtil().setHeight(20), ScreenUtil().setWidth(20), ScreenUtil().setHeight(20)),
             margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(20), 0.0, 0.0),
@@ -126,8 +119,8 @@ class _GoodListState extends State<GoodList> {
                     children: <Widget>[
                       Image.network(
                         item['pict_url'],
-                        width: ScreenUtil().setWidth(160),
-                        height: ScreenUtil().setHeight(160),
+                        width: ScreenUtil().setWidth(200),
+                        height: ScreenUtil().setHeight(200),
                       ),
                       new Column(
                         children: <Widget>[
@@ -142,7 +135,7 @@ class _GoodListState extends State<GoodList> {
                                 ),
                               ),
                               Container(
-                                width: ScreenUtil().setWidth(466),
+                                width: ScreenUtil().setWidth(426),
                                 child: Text(
                                   item['title'],
                                   maxLines: 1,
@@ -156,8 +149,8 @@ class _GoodListState extends State<GoodList> {
                             ],
                           ),
                           Container(
-                            width: ScreenUtil().setWidth(510),
-                            margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(16), 0.0, ScreenUtil().setHeight(18)),
+                            width: ScreenUtil().setWidth(470),
+                            margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(26), 0.0, ScreenUtil().setHeight(26)),
                             child: new Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
@@ -166,13 +159,13 @@ class _GoodListState extends State<GoodList> {
                                     border: new Border.all(width: 1.0, color: const Color(0xFFFC5032)),
                                   ),
                                   width: ScreenUtil().setWidth(240), // 240
-                                  height: ScreenUtil().setHeight(34),
+                                  height: ScreenUtil().setHeight(50),
                                   child: new Row(
                                     children: <Widget>[
                                       Container(
                                         color: Color(0xFFFC5032),
                                         width: ScreenUtil().setWidth(50),
-                                        height: ScreenUtil().setHeight(40),
+                                        height: ScreenUtil().setHeight(50),
                                         child: Text(
                                           "劵",
                                           style: TextStyle(
@@ -184,7 +177,7 @@ class _GoodListState extends State<GoodList> {
                                       ),
                                       Container(
                                         width: ScreenUtil().setWidth(180),
-                                        height: ScreenUtil().setHeight(40),
+                                        height: ScreenUtil().setHeight(50),
                                         child: new Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
@@ -220,7 +213,7 @@ class _GoodListState extends State<GoodList> {
                             ),
                           ),
                           Container(
-                            width: ScreenUtil().setWidth(510),
+                            width: ScreenUtil().setWidth(470),
                             child: new Row(
                               children: <Widget>[
                                 Text(
@@ -280,7 +273,7 @@ class _GoodListState extends State<GoodList> {
     goodArrWidget.add(
       GestureDetector(
         child: Container(
-          padding: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(20), 0.0, 0.0),
+          padding: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(30), 0.0, ScreenUtil().setHeight(30)),
           child: Text("加载更多"),
         ),
         onTap: () {

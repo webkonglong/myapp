@@ -30,6 +30,7 @@ dependencies:
   event_bus: ^1.1.0
   device_info : ^0.2.0
   flutter_swiper: ^1.0.6
+  url_launcher: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +52,9 @@ flutter:
   assets:
     - images/loading.jpg
     - images/search_icon.png
-    - images/goods.jpg
+    - images/111.jpg
+    - images/222.jpg
+    - images/333.jpg
     - images/yellow.png
     - images/orange.png
     - images/tb.png

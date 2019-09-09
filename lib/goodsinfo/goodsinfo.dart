@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../ajax.dart';
 
@@ -86,6 +87,17 @@ class GoodsinfoState extends State<Goodsinfo> {
       }
     });
 
+  }
+
+  _launchURL() async {
+    print("open 手淘");
+    // const url = 'https://apps.apple.com/cn/app/%E6%89%8B%E6%9C%BA%E6%B7%98%E5%AE%9D-%E6%B7%98%E5%88%B0%E4%BD%A0%E8%AF%B4%E5%A5%BD/id387682726';
+    const url = "weixin://";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget swiperView () {
@@ -245,7 +257,7 @@ class GoodsinfoState extends State<Goodsinfo> {
       bottomNavigationBar: GestureDetector(
         child: Container(
           width: ScreenUtil().setWidth(750),
-          height: ScreenUtil().setHeight(80),
+          height: ScreenUtil().setHeight(100),
           alignment: Alignment.center,
           decoration: new BoxDecoration(
             color: Color(0xFFFC5032),
@@ -253,13 +265,13 @@ class GoodsinfoState extends State<Goodsinfo> {
           child: Text(
             "去领劵",
             style: TextStyle(
-              fontSize: ScreenUtil().setSp(28),
+              fontSize: ScreenUtil().setSp(32),
               color: Colors.white,
             ),
           ),
         ),
         onTap: () {
-          print("amz");
+          _launchURL();
         },
       ),
     );

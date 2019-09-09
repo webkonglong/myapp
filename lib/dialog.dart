@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import './goodsinfo/goodsinfo.dart';
 
-dialog (BuildContext context, Map<String, dynamic> goods) async {
+typedef void Callback();
+
+dialog (BuildContext context, Map<String, dynamic> goods, Callback cb) async {
   ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
 
   await showDialog(
@@ -15,14 +17,14 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
             child: Column(
               children: <Widget>[
                 Container(
-                  width: ScreenUtil().setWidth(614),
-                  height: ScreenUtil().setHeight(250),
+                  width: ScreenUtil().setWidth(634),
+                  height: ScreenUtil().setHeight(310),
                   decoration: new BoxDecoration(
                     color: Colors.white,
                     //设置四周圆角 角度 这里的角度应该为 父Container height 的一半
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
-                  padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(20), ScreenUtil().setHeight(10), ScreenUtil().setWidth(20), ScreenUtil().setHeight(10)),
+                  padding: new EdgeInsets.fromLTRB(ScreenUtil().setWidth(30), ScreenUtil().setHeight(30), ScreenUtil().setWidth(30), ScreenUtil().setHeight(30)),
                   child: Column(
                     children: <Widget>[
                       Row(
@@ -87,7 +89,7 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                           GestureDetector(
                             child: Container(
                               width: ScreenUtil().setWidth(260),
-                              height: ScreenUtil().setHeight(50),
+                              height: ScreenUtil().setHeight(70),
                               margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(10), ScreenUtil().setWidth(50), 0.0),
                               decoration: new BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -105,6 +107,7 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                               ),
                             ),
                             onTap: () {
+                              cb();
                               Navigator.pop(context);
                               Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context) {
                                 return new Goodsinfo(
@@ -117,7 +120,7 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                           GestureDetector(
                             child: Container(
                               width: ScreenUtil().setWidth(260),
-                              height: ScreenUtil().setHeight(50),
+                              height: ScreenUtil().setHeight(70),
                               margin: new EdgeInsets.fromLTRB(0.0, ScreenUtil().setHeight(10), 0.0, 0.0),
                               decoration: new BoxDecoration(
                                 color: Color(0xFFFC5032),
@@ -136,6 +139,8 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                               ),
                             ),
                             onTap: () {
+                              Navigator.pop(context);
+                              cb();
                             },
                           ),
                         ],
@@ -154,6 +159,7 @@ dialog (BuildContext context, Map<String, dynamic> goods) async {
                     ),
                   ),
                   onTap: () {
+                    cb();
                     Navigator.pop(context);
                   },
                 ),

@@ -31,14 +31,6 @@ class _GoodsTypeBarState extends State<GoodsTypeBar> {
   }
 
   @override
-  void dispose () {
-    bus.off("type");
-    bus.off("deleteNavClass");
-    bus.off("delectInputVlaue");
-    super.dispose();
-  }
-
-  @override
   Widget build (BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
 
